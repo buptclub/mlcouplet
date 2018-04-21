@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    background: transparent;
+}
+
+ul {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    list-style-type: none;
+}
+
+body {
+    background-image: url("/img/background.jpeg");
+}
+
+div.input .background {
+    background-image: url(/img/couplet_input_bg.png);
+    display: inline-block;
+    background-repeat: no-repeat;
+}
