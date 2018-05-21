@@ -27,7 +27,8 @@ cd mlcouplet/core
 ./test.py --model_path model/pass_00040.tar.gz \
     --vocabs_path data/vocabs.txt \
     --test_data_path data/test.txt \
-    --save_file data/output.txt 
+    --save_file data/output.txt \
+    --beam_size 5
 ```
 
 * vocabs_path:数据集词文件
