@@ -26,7 +26,15 @@ public class TomcatServer extends AbstractServer {
         Connector connector = new Connector("HTTP/1.1");
         connector.setPort(serverConfig.getPort());
         connector.setAttribute("address", serverConfig.getHost());
-        tomcat.setConnector(connector);
+        tomcat.getService().addConnector(connector);
+
+        // 启用本地监听
+        if ( !isLocalhostAddress()) {
+            Connector localConnector = new Connector("HTTP/1.1");
+            localConnector.setPort(serverConfig.getPort());
+            localConnector.setAttribute("address", "localhost");
+            tomcat.getService().addConnector(localConnector);
+        }
 
         // 添加项目
         tomcat.addWebapp("/", getWebAppDirectory().getAbsolutePath());
@@ -36,6 +44,11 @@ public class TomcatServer extends AbstractServer {
         LOGGER.info("start server at http://{}:{}", serverConfig.getHost(), serverConfig.getPort());
 
         tomcat.getServer().await();
+    }
+
+    private boolean isLocalhostAddress() {
+        return serverConfig.getHost().equalsIgnoreCase("localhost") ||
+                serverConfig.getHost().equalsIgnoreCase("127.0.0.1");
     }
 
     @Override

@@ -4,7 +4,6 @@
     border: 0;
     outline: 0;
     font-size: 100%;
-    background: transparent;
 }
 
 ul {
@@ -15,10 +14,24 @@ ul {
 
 body {
     background-image: url("/img/background.jpeg");
+    background-repeat: no-repeat;
 }
 
-div.input .background {
-    background-image: url(/img/couplet_input_bg.png);
-    display: inline-block;
-    background-repeat: no-repeat;
+input#inputFirstCouplet {
+    background-color: transparent;
+    border: 2px solid #000;
+    height: 31px;
+    padding: 5px;
+}
+
+table#preview {
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+#preview input {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
 }
