@@ -11,14 +11,54 @@
   </head>
 
   <body>
-    <div class="input">
-      上联:
+    <div>
+      <input id="inputFirstCouplet" size="10" name="firstCouplet" type="text" />
 
-      <div class="background">
-        <input id="firstLine" name="firstLine" type="text" />
-      </div> 对下联
+      <table id="preview">
+        <tbody>
+          <tr>
+            <td colspan="3">
+              <table>
+                <tbody>
+                  <tr>
+                    <td style="width: 16px;"></td>
+
+                    <!-- 上联 -->
+                    <td>
+                      <div id="firstCouplet">
+                        <table style="margin-left: auto; margin-right: auto;">
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+
+                    <td style="width: 64px;"></td>
+
+                    <!-- 下联 -->
+                    <td>
+                      <div id="secondCouplet">
+                        <table style="margin-left: auto; margin-right: auto;">
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+
+                    <td style="width: 16px;"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
     </div>
     
   </body>
+
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="js/couplet.js"></script>
 
 </html>
