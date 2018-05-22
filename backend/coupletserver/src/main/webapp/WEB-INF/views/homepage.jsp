@@ -12,7 +12,11 @@
 
   <body>
     <div>
-      <input id="inputFirstCouplet" size="10" name="firstCouplet" type="text" />
+
+      <div class="input-container">
+        <input id="inputFirstCouplet" size="20" placeholder="请输入上联" name="firstCouplet" type="text" />
+        <button class="button-red">求下联</button>
+      </div>
 
       <table id="preview">
         <tbody>

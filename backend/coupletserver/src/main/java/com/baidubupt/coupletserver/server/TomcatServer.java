@@ -1,5 +1,6 @@
 package com.baidubupt.coupletserver.server;
 
+import com.baidubupt.coupletserver.util.Utils;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
 import org.slf4j.Logger;
@@ -22,14 +23,19 @@ public class TomcatServer extends AbstractServer {
     public void start() throws Exception {
         tomcat.setBaseDir(getTempDirectory().getAbsolutePath());
 
+        String privateHost = serverConfig.getHost();
+        if (privateHost == null || privateHost.isEmpty()) {
+            privateHost = Utils.getLocalhostByNetworkInterface();
+        }
+
         // 绑定端口和地址
         Connector connector = new Connector("HTTP/1.1");
         connector.setPort(serverConfig.getPort());
-        connector.setAttribute("address", serverConfig.getHost());
+        connector.setAttribute("address", privateHost);
         tomcat.getService().addConnector(connector);
 
         // 启用本地监听
-        if ( !isLocalhostAddress()) {
+        if (!isLocalhostAddress(privateHost)) {
             Connector localConnector = new Connector("HTTP/1.1");
             localConnector.setPort(serverConfig.getPort());
             localConnector.setAttribute("address", "localhost");
@@ -41,14 +47,14 @@ public class TomcatServer extends AbstractServer {
 
         // 启动
         tomcat.start();
-        LOGGER.info("start server at http://{}:{}", serverConfig.getHost(), serverConfig.getPort());
+        LOGGER.info("start server at http://{}:{}", privateHost, serverConfig.getPort());
+        LOGGER.info("start server at http://{}:{}", "localhost", serverConfig.getPort());
 
         tomcat.getServer().await();
     }
 
-    private boolean isLocalhostAddress() {
-        return serverConfig.getHost().equalsIgnoreCase("localhost") ||
-                serverConfig.getHost().equalsIgnoreCase("127.0.0.1");
+    private boolean isLocalhostAddress(String privateHost) {
+        return privateHost.equalsIgnoreCase("localhost") || privateHost.equalsIgnoreCase("127.0.0.1");
     }
 
     @Override
