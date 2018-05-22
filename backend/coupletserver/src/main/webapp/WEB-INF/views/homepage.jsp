@@ -14,7 +14,7 @@
     <div>
 
       <div class="input-container">
-        <input id="inputFirstCouplet" size="20" placeholder="请输入上联" name="firstCouplet" type="text" />
+        <input id="inputFirstCouplet" size="25" placeholder="请输入上联" name="firstCouplet" type="text" />
         <button class="button-red">求下联</button>
       </div>
 
@@ -58,6 +58,15 @@
         </tbody>
       </table>
       
+    </div>
+
+    <!-- LOADING -->
+    <div class="spinner">
+      <div class="rect1"></div>
+      <div class="rect2"></div>
+      <div class="rect3"></div>
+      <div class="rect4"></div>
+      <div class="rect5"></div>
     </div>
     
   </body>
