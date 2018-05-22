@@ -49,6 +49,8 @@ var Couplet = (function() {
     }
     
     function generateCouplet( firstCouplet /** optional **/ ) {
+        progressBar.show();
+        
         firstCouplet = firstCouplet || $( inputSelector ).val();
         api.generate( firstCouplet, function (status, response) {
 
@@ -56,19 +58,43 @@ var Couplet = (function() {
                 alert('请输入上联');
                 return;
             } else if (status == 2) {
-                alert('错误', response);
+                alert('错误' + response);
             } else if (status == 0) {
-                console.log( '上联:' + response.firstCouplet );
-                console.log( '下联:' + response.secondCouplet );
-
+                if ( response.status != 0 ) {
+                    alert( '错误' + response );
+                }
+                
                 if ( response.firstCouplet &&
                      response.secondCouplet ) {
                     fillCouplet( response.firstCouplet, response.secondCouplet );  
                 }
             }
+
+            progressBar.hide();
             
         } );
     }
+
+    // ===========================
+    // PROGRESS BAR MODULE
+    // ===========================
+
+    var progressBar = (function() {
+
+        function show() {
+            $( '.spinner' ).fadeIn();
+        }
+
+        function hide() {
+            $( '.spinner' ).fadeOut();
+        }
+        
+        return {
+            show: show,
+            hide: hide
+        }
+        
+    }());
 
     // ===========================
     // API MODULE
@@ -84,13 +110,7 @@ var Couplet = (function() {
             // request url
             $.ajax({
                 url: '/generate/' + firstCouplet,
-                contentType: 'json',
-                success: function ( response ) {
-                    
-                },
-                error: function ( exception ) {
-                    
-                }
+                contentType: 'json'
             }).done(function( data, textStatus, jqXHR ) {
                 callback( 0, data );
             }).fail(function( jqXHR, textStatus, errorThrown ) {
@@ -109,6 +129,7 @@ var Couplet = (function() {
     // Global API
     return {
         api: api,
+        progressBar: progressBar,
         generateCouplet: generateCouplet
     }
     
