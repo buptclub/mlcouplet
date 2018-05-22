@@ -11,10 +11,21 @@ var Couplet = (function() {
         $( inputSelector )
             .on( 'keyup', function( e ) {
                 if (e.keyCode === 13) {
-                    generateCouplet();
-                    $( inputSelector ).blur();
+                    _generateCoupletAndLossFocus();
                 }
             });
+
+        $( '.button-red' )
+            .on( 'click', function( e ) {
+                _generateCoupletAndLossFocus();
+            });
+
+        $( inputSelector ).focus();
+    }
+
+    function _generateCoupletAndLossFocus() {
+        generateCouplet();
+        $( inputSelector ).blur();
     }
 
     function buildCoupletHtml( singleCouplet ) {

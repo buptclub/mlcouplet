@@ -22,6 +22,7 @@ input#inputFirstCouplet {
     border: 2px solid #000;
     height: 31px;
     padding: 5px;
+    margin-right:5px;
 }
 
 table#preview {
@@ -34,4 +35,25 @@ table#preview {
     width: 36px;
     height: 36px;
     background-color: transparent;
+}
+
+.button-red {
+    background: rgb(202, 60, 60);
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    font-size: 100%;
+    padding: .5em 1em;
+    display: inline-block;
+    zoom: 1;
+    white-space: nowrap;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-bottom: 3px;
+}
+
+.input-container {
+    text-align:center;
+    margin-top: 30px;
 }
