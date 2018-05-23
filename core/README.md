@@ -11,7 +11,7 @@ Auto generate couplet by using baidu ML framework paddlepaddle
 
 ```bash
 cd mlcouplet/core
-./train.py --num_passes 100 \
+python train.py --num_passes 100 \
     --batch_size 64 \
     --use_gpu True \
     --trainer_count 1 \
@@ -24,7 +24,7 @@ cd mlcouplet/core
 ### test
 
 ```bash
-./test.py --model_path model/pass_00040.tar.gz \
+python test.py --model_path model/pass_00040.tar.gz \
     --vocabs_path data/vocabs.txt \
     --test_data_path data/test.txt \
     --save_file data/output.txt \
