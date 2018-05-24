@@ -3,7 +3,8 @@ import sys
 import gzip
 import logging
 import numpy as np
-import click
+import argparse
+import time
 
 import reader
 import paddle.v2 as paddle
@@ -34,29 +35,40 @@ def infer_a_batch(inferer, test_batch, beam_size, id_to_text, fout):
         fout.flush
 
 
-@click.command("test")
-@click.option(
-    "--model_path",
-    default="",
-    help="The path of the trained model for test.")
-@click.option(
-    "--vocabs_path", required=True, help="The path of word vocabularies.")
-@click.option(
-    "--test_data_path",
-    required=True,
-    help="The path of input data for test.")
-@click.option(
-    "--batch_size",
-    default=1,
-    help="The number of testing examples in one forward pass in generation.")
-@click.option(
-    "--beam_size", default=5, help="The beam expansion in beam search.")
-@click.option(
-    "--save_file",
-    required=True,
-    help="The file path to save the generated results.")
-@click.option(
-    "--use_gpu", default=False, help="Whether to use GPU in generation.")
+def parse_args():
+    """
+    Parse input arguments
+    """
+    parser = argparse.ArgumentParser(description='Train a couplet generate network')
+    parser.add_argument('--model_path', dest='model_path',
+                        help='The path of the trained model for test.',
+                        default='', type=str)
+    parser.add_argument('--vocabs_path', dest='vocabs_path',
+                        help='The path of word vocabularies.',
+                        default='data/vocabs.txt', type=str)
+    parser.add_argument('--test_data_path', dest='test_data_path',
+                        help='The path of input data for test.',
+                        default='data/test.txt', type=str)
+    parser.add_argument('--batch_size', dest='batch_size',
+                        help='The number of testing examples in one forward pass in generation.',
+                        default=1, type=int)
+    parser.add_argument('--beam_size', dest='beam_size',
+                        help='The beam expansion in beam search.',
+                        default=5, type=int)
+    parser.add_argument('--save_file', dest='save_file',
+                        help='The file path to save the generated results.',
+                        default='data/output/txt', type=str)
+    parser.add_argument('--use_gpu', dest='use_gpu',
+                        help='Whether to use GPU in generation.',
+                        default=0, type=int)
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(1)
+
+    args = parser.parse_args()
+    return args
+
+
 def test(model_path, vocabs_path, test_data_path, batch_size, beam_size,
          save_file, use_gpu):
     assert os.path.exists(model_path), "The given model does not exist."
@@ -100,7 +112,18 @@ def test(model_path, vocabs_path, test_data_path, batch_size, beam_size,
         if len(test_batch):
             infer_a_batch(inferer, test_batch, beam_size, id_to_text, fout)
             test_batch = []
+    end = time.clock()
+    print('time:{}'.format(end-start))
 
 
 if __name__ == "__main__":
-    test()
+    args = parse_args()
+    start = time.clock()
+
+    test(args.model_path,
+         args.vocabs_path,
+         args.test_data_path,
+         args.batch_size,
+         args.beam_size,
+         args.save_file,
+         bool(args.use_gpu))
