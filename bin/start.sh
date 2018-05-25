@@ -3,7 +3,7 @@
 # @Author:
 #     zk
 # @Usage:
-#     ./start.sh
+#     ./start.sh {start | stop}
 #
 
 CONF_FOLDER=conf

@@ -13,6 +13,9 @@ public class ServerConfig {
      */
     public static final String DEFAULT_CONFIG_PATH = System.getProperty("config", "conf/conf.properties");
 
+    /** single instance **/
+    private static volatile ServerConfig instance;
+
     private int port;
     private String host;
     private String pythonPath;
@@ -75,6 +78,18 @@ public class ServerConfig {
 
     public void setCoupletGeneratePythonFilePath(String coupletGeneratePythonFilePath) {
         this.coupletGeneratePythonFilePath = coupletGeneratePythonFilePath;
+    }
+
+    public static ServerConfig getOrParse(String[] args) throws Exception {
+        if (instance == null) {
+            synchronized (ServerConfig.class) {
+                if (instance == null) {
+                    instance = parse(args);
+                }
+            }
+        }
+
+        return instance;
     }
 
     public static ServerConfig parse(String[] args) throws Exception {

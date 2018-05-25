@@ -27,7 +27,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public ServerConfig serverConfig() throws Exception {
-        return ServerConfig.parse(new String[]{});
+        return ServerConfig.getOrParse(new String[]{});
     }
 
     // ================================
