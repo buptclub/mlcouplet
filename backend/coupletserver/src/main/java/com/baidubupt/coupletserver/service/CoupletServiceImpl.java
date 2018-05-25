@@ -50,10 +50,14 @@ public class CoupletServiceImpl implements CoupletService {
                 LOGGER.info("invoke command {}.", command);
                 long BEGIN = System.currentTimeMillis();
                 Process process = ProcessUtils.execute(command);
-                int existValue = process.waitFor();
-                LOGGER.info("finish invoke command {}, exist value {}, using {} ms.", command, existValue, (System.currentTimeMillis() - BEGIN));
+                int exitValue = process.waitFor();
+                LOGGER.info("finish invoke command {}, exist value {}, using {} ms.", command, exitValue, (System.currentTimeMillis() - BEGIN));
 
-                return toSecondCoupletList(outputFilePath);
+                if (exitValue == 0) {
+                    return toSecondCoupletList(outputFilePath);
+                }
+
+                throw new RuntimeException("Error exec command exit value " + exitValue);
             }
         });
     }

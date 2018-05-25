@@ -2,6 +2,8 @@ package com.baidubupt.coupletserver.controller;
 
 import com.baidubupt.coupletserver.entity.SecondCoupletListEntity;
 import com.baidubupt.coupletserver.service.CoupletService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/")
 public class CoupletController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CoupletController.class);
 
     @Autowired
     CoupletService coupletService;
@@ -47,6 +51,7 @@ public class CoupletController {
             secondCoupletListEntity = coupletService.generate(firstCouplet);
         } catch (Exception ex) {
             e = ex;
+            LOGGER.error("generate couplet with " + firstCouplet + " exception " + e, ex);
         }
 
         Map<String, Object> responseBody = new HashMap<>();

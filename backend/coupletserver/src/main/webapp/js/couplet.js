@@ -55,21 +55,22 @@ var Couplet = (function() {
         api.generate( firstCouplet, function (status, response) {
 
             if (status == 1) {
-                alert('请输入上联');
-                return;
+                alert( '请输入上联' );
             } else if (status == 2) {
-                alert('错误' + response);
+                alert( '错误: 与服务器断开连接' );
             } else if (status == 0) {
                 if ( response.status != 0 ) {
-                    alert( '错误' + response );
+                    alert( '错误: ' + response.exception.message );
                 }
 
-                var secondCoupletList = response.data.secondCoupletList,
-                    firstCouplet = response.data.firstCouplet;
-                
-                if ( firstCouplet &&
-                     secondCoupletList ) {
-                    fillCouplet( firstCouplet, secondCoupletList[ Math.floor(Math.random() * secondCoupletList.length) ].couplet );
+                if ( response.data ) {
+                    var secondCoupletList = response.data.secondCoupletList,
+                        firstCouplet = response.data.firstCouplet;
+                    
+                    if ( firstCouplet &&
+                         secondCoupletList ) {
+                        fillCouplet( firstCouplet, secondCoupletList[ Math.floor(Math.random() * secondCoupletList.length) ].couplet );
+                    }
                 }
             }
 
