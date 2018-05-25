@@ -2,6 +2,16 @@
 
 Auto generate couplet by using baidu ML framework paddlepaddle
 
+# 环境
+
+```
+- 64 位操作系统
+- JDK 1.8
+- python 2.7
+- pip install numpy
+- pip install paddlepaddle
+```
+
 # 打包
 
 ``` bash
@@ -20,3 +30,9 @@ cd coupletserver-release
 ```
 
 通过 http://localhost:9000 来访问
+
+# 关闭
+
+``` bash
+./start.sh stop
+```
