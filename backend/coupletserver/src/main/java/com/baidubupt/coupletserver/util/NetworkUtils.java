@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-public class Utils {
+public class NetworkUtils {
 
     public static String getLocalhostByNetworkInterface() throws SocketException {
         List<String> candidatesHost = new ArrayList<String>();

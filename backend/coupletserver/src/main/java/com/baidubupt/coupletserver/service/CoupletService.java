@@ -1,9 +1,9 @@
 package com.baidubupt.coupletserver.service;
 
-import com.baidubupt.coupletserver.entity.Couplet;
+import com.baidubupt.coupletserver.entity.SecondCoupletListEntity;
 
 public interface CoupletService {
 
-    Couplet generate(String firstCouplet);
+    SecondCoupletListEntity generate(String firstCouplet) throws Exception;
 
 }

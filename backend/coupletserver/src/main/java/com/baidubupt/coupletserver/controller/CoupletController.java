@@ -1,6 +1,6 @@
 package com.baidubupt.coupletserver.controller;
 
-import com.baidubupt.coupletserver.entity.Couplet;
+import com.baidubupt.coupletserver.entity.SecondCoupletListEntity;
 import com.baidubupt.coupletserver.service.CoupletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -40,34 +40,35 @@ public class CoupletController {
     @ResponseBody
     @RequestMapping(value = "/generate/{firstCouplet}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Map<String, Object> generate(@PathVariable("firstCouplet") String firstCouplet) {
-        Couplet couplet = null;
+        SecondCoupletListEntity secondCoupletListEntity = null;
         Exception e = null;
 
         try {
-            couplet = coupletService.generate(firstCouplet);
+            secondCoupletListEntity = coupletService.generate(firstCouplet);
         } catch (Exception ex) {
             e = ex;
         }
 
         Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("firstCouplet", firstCouplet);
-        responseBody.put("secondCouplet", couplet.getSecondCouplet());
+        responseBody.put("data", secondCoupletListEntity);
         responseBody.put("exception", e);
-        responseBody.put("status", getStatusCode(couplet, e));
+        responseBody.put("status", getStatusCode(secondCoupletListEntity, e));
 
         return responseBody;
     }
 
-    static int getStatusCode(Couplet couplet, Exception exception) {
+    static int getStatusCode(SecondCoupletListEntity secondCoupletListEntity, Exception exception) {
         if (exception != null) {
             return 1;
         }
 
-        if (couplet == null) {
+        if (secondCoupletListEntity == null ||
+                secondCoupletListEntity.getSecondCoupletList() == null ||
+                secondCoupletListEntity.getSecondCoupletList().isEmpty()) {
             return 2;
         }
 
-        if (couplet.getSecondCouplet() != null && couplet.getFirstCouplet() != null) { /** success **/
+        if (!secondCoupletListEntity.getSecondCoupletList().isEmpty()) { /** success **/
             return 0;
         }
 

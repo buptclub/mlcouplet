@@ -1,6 +1,6 @@
 package com.baidubupt.coupletserver.server;
 
-import com.baidubupt.coupletserver.util.Utils;
+import com.baidubupt.coupletserver.util.NetworkUtils;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ public class TomcatServer extends AbstractServer {
 
         String privateHost = serverConfig.getHost();
         if (privateHost == null || privateHost.isEmpty()) {
-            privateHost = Utils.getLocalhostByNetworkInterface();
+            privateHost = NetworkUtils.getLocalhostByNetworkInterface();
         }
 
         // 绑定端口和地址

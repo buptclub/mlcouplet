@@ -1,0 +1,75 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>all</id>
+
+    <!-- ZIP 包包含顶级目录 -->
+    <includeBaseDirectory>true</includeBaseDirectory>
+
+    <!-- 打成 ZIP 包 -->
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <!-- 拷贝文件夹 -->
+    <fileSets>
+
+        <!-- 拷贝项目所有依赖 -->
+        <fileSet>
+            <directory>target/classes/lib</directory>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
+
+        <!-- 拷贝 webapp 工程 -->
+        <fileSet>
+            <directory>src/main/webapp</directory>
+            <outputDirectory>src/main/webapp</outputDirectory>
+        </fileSet>
+
+        <!-- 拷贝 webapp 需要的 Controller, Service 等类到 classes 文件夹下面 -->
+        <fileSet>
+            <directory>target/classes/com</directory>
+            <outputDirectory>/src/main/webapp/classes/com</outputDirectory>
+        </fileSet>
+
+        <!-- 拷贝 conf 配置 -->
+        <fileSet>
+            <directory>conf</directory>
+            <outputDirectory>conf</outputDirectory>
+        </fileSet>
+
+        <!-- 拷贝 paddlepaddle 文件 -->
+        <fileSet>
+            <directory>../../core</directory>
+            <outputDirectory>paddlepaddle</outputDirectory>
+            <excludes>
+                <exclude>*.pyc</exclude>
+                <exclude>**/README.md</exclude>
+                <exclude>**/*.swp</exclude>
+                <exclude>data/test/**</exclude>
+                <exclude>data/train/**</exclude>
+                <exclude>data/vocabs</exclude>
+                <exclude>train.py</exclude>
+            </excludes>
+        </fileSet>
+
+    </fileSets>
+
+    <!-- 拷贝文件 -->
+    <files>
+
+        <!-- 拷贝 main.jar -->
+        <file>
+            <source>target/coupletserver-1.0-SNAPSHOT.jar</source>
+            <destName>coupletserver.jar</destName>
+        </file>
+
+        <!-- 拷贝 start 脚本 -->
+        <file>
+            <source>../../bin/start.sh</source>
+            <destName>start.sh</destName>
+        </file>
+
+    </files>
+
+</assembly>

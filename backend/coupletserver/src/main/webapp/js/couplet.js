@@ -63,10 +63,13 @@ var Couplet = (function() {
                 if ( response.status != 0 ) {
                     alert( '错误' + response );
                 }
+
+                var secondCoupletList = response.data.secondCoupletList,
+                    firstCouplet = response.data.firstCouplet;
                 
-                if ( response.firstCouplet &&
-                     response.secondCouplet ) {
-                    fillCouplet( response.firstCouplet, response.secondCouplet );  
+                if ( firstCouplet &&
+                     secondCoupletList ) {
+                    fillCouplet( firstCouplet, secondCoupletList[ Math.floor(Math.random() * secondCoupletList.length) ].couplet );
                 }
             }
 

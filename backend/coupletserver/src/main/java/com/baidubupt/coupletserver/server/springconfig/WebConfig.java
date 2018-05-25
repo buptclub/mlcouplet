@@ -3,6 +3,7 @@ package com.baidubupt.coupletserver.server.springconfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.baidubupt.coupletserver.server.ServerConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,11 @@ import java.util.List;
         "com.baidubupt.coupletserver.service"
 })
 public class WebConfig extends WebMvcConfigurerAdapter {
+
+    @Bean
+    public ServerConfig serverConfig() throws Exception {
+        return ServerConfig.parse(new String[]{});
+    }
 
     // ================================
     // Resources
