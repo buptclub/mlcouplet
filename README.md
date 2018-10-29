@@ -9,8 +9,7 @@ Auto generate couplet by using baidu ML framework paddlepaddle
 - 下载模型文件放到 core/model 文件夹下面
 - JDK 1.8
 - python 2.7
-- pip install numpy
-- pip install paddlepaddle
+- pip install 'paddlepaddle==0.11.0'
 ```
 
 模型文件地址: [Google Driver](https://drive.google.com/open?id=1xQCHvi4m5GYkD_XDGDyJ_OAcmFDaHdV_)
